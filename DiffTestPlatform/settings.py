@@ -83,7 +83,7 @@ DATABASES = {
         'PORT': '3306',   #监听端口 默认3306即可
         'NAME': 'difftest',  #新建数据库名
         'USER': 'root',   #数据库登录名
-        'PASSWORD': '123456',   #数据库登录密码
+        'PASSWORD': 'root',   #数据库登录密码
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
