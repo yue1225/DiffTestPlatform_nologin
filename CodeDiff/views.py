@@ -1,69 +1,69 @@
 from django.shortcuts import render,HttpResponse,get_object_or_404,render_to_response
 from django.http import HttpResponseRedirect
-from CodeDiff.models import ProjectInfo,ServerInfo,TaskInfo,UserInfo
-from CodeDiff.util.common import add_task_logic,delete_task,get_ajax_msg,edit_task_logic,add_register_data
+from CodeDiff.models import ProjectInfo,ServerInfo,TaskInfo
+from CodeDiff.util.common import add_task_logic,delete_task,get_ajax_msg,edit_task_logic
 from CodeDiff.util.run_diff import RunDiff
 import json
 import os
 
 # Create your views here.
-def login_check(func):
-    def wrapper(request, *args, **kwargs):
-        if not request.session.get('login_status'):
-            return HttpResponseRedirect('/')
-        if not request.session.get('auth'):
-            return HttpResponse('您的账号目前还没有开通项目权限，请联系管理员开通')
-        return func(request, *args, **kwargs)
-    return wrapper
+# def login_check(func):
+#     def wrapper(request, *args, **kwargs):
+#         if not request.session.get('login_status'):
+#             return HttpResponseRedirect('/')
+#         if not request.session.get('auth'):
+#             return HttpResponse('您的账号目前还没有开通项目权限，请联系管理员开通')
+#         return func(request, *args, **kwargs)
+#     return wrapper
+#
+# def login(request):
+#     """
+#     登录
+#     :param request:
+#     :return:
+#     """
+#     if request.method == 'POST':
+#         username = request.POST.get('user')
+#         password = request.POST.get('pw')
+#
+#         if UserInfo.objects.filter(username__exact=username).filter(password__exact=password).count() == 1:
+#             request.session["login_status"] = True
+#             request.session["now_account"] = username
+#             request.session['auth'] = UserInfo.objects.get(username=username).auth
+#             return HttpResponseRedirect('/index/')
+#         else:
+#             request.session["login_status"] = False
+#             return render_to_response("login.html")
+#     elif request.method == 'GET':
+#         return render_to_response("login.html")
+#
+# def register(request):
+#     """
+#     注册
+#     :param request:
+#     :return:
+#     """
+#     if request.is_ajax():
+#         user_info = json.loads(request.body.decode('utf-8'))
+#         msg = add_register_data(**user_info)
+#         return HttpResponse(get_ajax_msg(msg, '恭喜您，账号已成功注册'))
+#     elif request.method == 'GET':
+#         return render_to_response("register.html")
+#
+# @login_check
+# def log_out(request):
+#     """
+#     注销登录
+#     :param request:
+#     :return:
+#     """
+#     if request.method == 'GET':
+#         del request.session['now_account']
+#         del request.session['login_status']
+#         del request.session['auth']
+#         return HttpResponseRedirect("/")
 
-def login(request):
-    """
-    登录
-    :param request:
-    :return:
-    """
-    if request.method == 'POST':
-        username = request.POST.get('user')
-        password = request.POST.get('pw')
-
-        if UserInfo.objects.filter(username__exact=username).filter(password__exact=password).count() == 1:
-            request.session["login_status"] = True
-            request.session["now_account"] = username
-            request.session['auth'] = UserInfo.objects.get(username=username).auth
-            return HttpResponseRedirect('/index/')
-        else:
-            request.session["login_status"] = False
-            return render_to_response("login.html")
-    elif request.method == 'GET':
-        return render_to_response("login.html")
-
-def register(request):
-    """
-    注册
-    :param request:
-    :return:
-    """
-    if request.is_ajax():
-        user_info = json.loads(request.body.decode('utf-8'))
-        msg = add_register_data(**user_info)
-        return HttpResponse(get_ajax_msg(msg, '恭喜您，账号已成功注册'))
-    elif request.method == 'GET':
-        return render_to_response("register.html")
-
-@login_check
-def log_out(request):
-    """
-    注销登录
-    :param request:
-    :return:
-    """
-    if request.method == 'GET':
-        del request.session['now_account']
-        del request.session['login_status']
-        del request.session['auth']
-        return HttpResponseRedirect("/")
-
-@login_check
+# @login_check
 def index(request,eid=0):
     """
     首页
@@ -98,7 +98,7 @@ def index(request,eid=0):
                                              'task_list':task_list,
                                              'user':user})
 
-@login_check
+# @login_check
 def task_search(request,eid=0):
     """
     任务查询
@@ -135,7 +135,7 @@ def task_search(request,eid=0):
                                          'task_list':task_list,
                                          'user': user})
 
-@login_check
+# @login_check
 def add_task(request,eid=0):
     """
     添加任务
@@ -166,7 +166,7 @@ def add_task(request,eid=0):
                                                'ser_list': ser_list,
                                                'user':user})
 
-@login_check
+# @login_check
 def edit_task(request,tid,eid=0):
     """
     编辑任务
@@ -203,7 +203,7 @@ def edit_task(request,tid,eid=0):
                                                 'user':user,
                                                 'rel':rel})
 
-@login_check
+# @login_check
 def jacoco_diff(request,eid,tid):
     """
     查看对应任务的变更代码覆盖率数据
@@ -226,7 +226,7 @@ def jacoco_diff(request,eid,tid):
                                             'eid':eid,
                                             'user':user})
 
-@login_check
+# @login_check
 def diff_report(request,eid,task,package,class_name):
     """
     展示对应代码覆盖率的详情

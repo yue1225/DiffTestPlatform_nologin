@@ -19,8 +19,8 @@ from CodeDiff import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.login),
-    path('register/',views.register),
+    # path('',views.login),
+    # path('register/',views.register),
     path('index/',views.index),
     path('index/<int:eid>/',views.index),
     path('task_search/<int:eid>/',views.task_search),

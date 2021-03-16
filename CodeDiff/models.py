@@ -43,16 +43,16 @@ class TaskInfo(BaseTable):
         verbose_name = '任务信息'
         db_table = 'TaskInfo'
 
-class UserInfo(BaseTable):
-    username = models.CharField('用户名',max_length=20,unique=True,null=False)
-    password = models.CharField('密码',max_length=20,null=False)
-    station = models.CharField('岗位',max_length=20,null=False)
-    auth = models.CharField('项目权限',max_length=20)
-
-    def __str__(self):
-        return self.username
-
-    class Meta:
-        verbose_name = '用户信息'
-        db_table = 'UserInfo'
+# class UserInfo(BaseTable):
+# #     username = models.CharField('用户名',max_length=20,unique=True,null=False)
+# #     password = models.CharField('密码',max_length=20,null=False)
+# #     station = models.CharField('岗位',max_length=20,null=False)
+# #     auth = models.CharField('项目权限',max_length=20)
+# #
+# #     def __str__(self):
+# #         return self.username
+# #
+# #     class Meta:
+# #         verbose_name = '用户信息'
+# #         db_table = 'UserInfo'
 
